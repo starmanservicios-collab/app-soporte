@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Alta de Cliente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1c2330;
+      --border: #30363d;
+      --accent: #e36f1e;
+      --accent2: #f5a623;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --success: #3fb950;
+      --error: #f85149;
+      --radius: 10px;
+      --input-bg: #0d1117;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #1a0a00 0%, #2d1200 50%, #1a0a00 100%);
+      border-bottom: 2px solid var(--accent);
+      padding: 18px 20px 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(227,111,30,0.25);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+    }
+
+    .header-sub {
+      font-size: 11px;
+      color: var(--accent2);
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* CONTAINER */
+    .container { padding: 20px 16px; max-width: 600px; margin: 0 auto; }
+
+    /* SECTION CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--surface2);
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(227,111,30,0.15);
+      border: 1px solid rgba(227,111,30,0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent2);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .card-body { padding: 18px; }
+
+    /* FIELDS */
+    .field { margin-bottom: 16px; }
+
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    label .req {
+      color: var(--accent);
+      margin-left: 2px;
+    }
+
+    label .opt {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 10px;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-left: 4px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(227,111,30,0.15);
+    }
+
+    input.invalid {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(248,81,73,0.1);
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.7) sepia(1) hue-rotate(350deg);
+    }
+
+    /* SECCIONAL BUTTON */
+    .seccional-btn {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      padding: 11px 14px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .seccional-btn:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(227,111,30,0.15);
+    }
+
+    .seccional-btn.selected { color: var(--text); }
+    .seccional-btn.placeholder-style { color: var(--text-muted); }
+
+    .seccional-btn .arrow { font-size: 12px; color: var(--text-muted); }
+
+    /* MODAL SECCIONAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 999;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border-radius: 20px 20px 0 0;
+      width: 100%;
+      max-width: 600px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      border-top: 2px solid var(--accent);
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent2);
+      text-transform: uppercase;
+    }
+
+    .modal-close {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-search {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-search input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      padding: 9px 12px;
+      outline: none;
+    }
+
+    .modal-search input:focus { border-color: var(--accent); }
+
+    .modal-list {
+      overflow-y: auto;
+      flex: 1;
+      padding: 8px 0;
+    }
+
+    .modal-item {
+      padding: 13px 18px;
+      cursor: pointer;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+
+    .modal-item:hover, .modal-item:active {
+      background: rgba(227,111,30,0.1);
+      color: var(--accent2);
+    }
+
+    .modal-item.selected {
+      background: rgba(227,111,30,0.18);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .modal-group-title {
+      padding: 8px 18px 4px;
+      font-size: 10px;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 16px;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 4px 20px rgba(227,111,30,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 4px;
+    }
+
+    .btn-submit:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 10px rgba(227,111,30,0.3);
+    }
+
+    /* TICKET */
+    #ticket-section { display: none; }
+
+    .ticket {
+      background: #fff;
+      color: #111;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    .ticket-header {
+      background: linear-gradient(135deg, #e36f1e, #f5a623);
+      padding: 18px 20px;
+      color: #fff;
+    }
+
+    .ticket-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+
+    .ticket-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .ticket-id {
+      font-size: 12px;
+      opacity: 0.85;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .ticket-body { padding: 18px 20px; }
+
+    .ticket-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .ticket-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .ticket-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-bottom: 2px;
+    }
+
+    .ticket-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .ticket-footer {
+      background: #f5f5f5;
+      padding: 12px 20px;
+      border-top: 1px solid #eee;
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+    }
+
+    /* WA BUTTON */
+    .btn-wa {
+      width: 100%;
+      background: #25D366;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 16px;
+      cursor: pointer;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+      transition: transform 0.15s;
+      margin-bottom: 12px;
+    }
+
+    .btn-wa:active { transform: scale(0.97); }
+
+    .btn-new {
+      width: 100%;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-new:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* SUCCESS BANNER */
+    .success-banner {
+      background: rgba(63,185,80,0.12);
+      border: 1px solid rgba(63,185,80,0.3);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .success-icon { font-size: 26px; }
+
+    .success-text { font-size: 14px; color: var(--success); font-weight: 600; }
+
+    /* VALIDATION MSG */
+    .field-error {
+      font-size: 11px;
+      color: var(--error);
+      margin-top: 4px;
+      display: none;
+    }
+    .field-error.show { display: block; }
+
+    /* DIVIDER */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 18px;
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-icon">📋</div>
+    <div>
+      <div class="header-title">Alta de Cliente</div>
+      <div class="header-sub">Sistema de Registro · Mendoza</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM SECTION -->
+<div class="container" id="form-section">
+
+  <!-- OPERADOR -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">👤</div>
+      <div class="card-title">Datos del Operador</div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label>Técnico / Operador <span class="req">*</span></label>
+        <input type="text" id="operador" placeholder="Nombre completo del operador" />
+        <div class="field-error" id="err-operador">Este campo es obligatorio.</div>
+      </div>
+      <div class="field">
+        <label>Seccional <span class="req">*</span></label>
+        <button type="button" class="seccional-btn placeholder-style" id="seccional-btn" onclick="openModal()">
+          <span id="seccional-text">Seleccionar localidad...</span>
+          <span class="arrow">▼</span>
+        </button>
+        <input type="hidden" id="seccional-val" />
+        <div class="field-error" id="err-seccional">Seleccioná una seccional.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🧾</div>
+      <div class="card-title">Información del Cliente</div>
+    </div>
+    <div class="card-body">
+
+      <div class="field">
+        <label>Nombre y Apellido <span class="req">*</span></label>
+        <input type="text" id="nombre" placeholder="Ej: Juan Pérez" />
+        <div class="field-error" id="err-nombre">Este campo es obligatorio.</div>
+      </div>
+
+      <div class="field">
+        <label>Fecha de Nacimiento <span class="req">*</span></label>
+        <input type="date" id="nacimiento" />
+        <div class="field-error" id="err-nacimiento">Este campo es obligatorio.</div>
+      </div>
+
+      <div class="field">
+        <label>DNI / CUIT / CUIL <span class="req">*</span></label>
+        <input type="text" id="dni" placeholder="Ej: 20-12345678-3" inputmode="numeric" />
+        <div class="field-error" id="err-dni">Este campo es obligatorio.</div>
+      </div>
+
+      <div class="field">
+        <label>Teléfono de Contacto <span class="req">*</span></label>
+        <input type="tel" id="telefono" placeholder="Ej: 261 123-4567" inputmode="tel" />
+        <div class="field-error" id="err-telefono">Este campo es obligatorio.</div>
+      </div>
+
+      <div class="field">
+        <label>Correo Electrónico <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="Ej: juan@correo.com" inputmode="email" />
+        <div class="field-error" id="err-email">Ingresá un email válido.</div>
+      </div>
+
+      <div class="field">
+        <label>Domicilio Legal <span class="req">*</span></label>
+        <input type="text" id="domicilio-legal" placeholder="Calle, número, ciudad" />
+        <div class="field-error" id="err-domicilio-legal">Este campo es obligatorio.</div>
+      </div>
+
+      <div class="field">
+        <label>Domicilio Real <span class="opt">(opcional)</span></label>
+        <input type="text" id="domicilio-real" placeholder="Si difiere del domicilio legal" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <button class="btn-submit" onclick="submitForm()">
+    ＋ Cargar Nuevo Cliente
+  </button>
+
+</div>
+
+<!-- TICKET SECTION -->
+<div class="container" id="ticket-section">
+
+  <div class="success-banner">
+    <div class="success-icon">✅</div>
+    <div class="success-text">Cliente registrado exitosamente.</div>
+  </div>
+
+  <div class="ticket" id="ticket-print">
+    <div class="ticket-header">
+      <div class="ticket-logo">Sistema de Registro · Mendoza</div>
+      <div class="ticket-title">Ticket de Alta</div>
+      <div class="ticket-id" id="ticket-id">N° —</div>
+    </div>
+    <div class="ticket-body">
+      <div class="ticket-row">
+        <div class="ticket-label">Fecha y Hora</div>
+        <div class="ticket-value" id="t-fecha">—</div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-label">Operador / Técnico</div>
+        <div class="ticket-value" id="t-operador">—</div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-label">Seccional</div>
+        <div class="ticket-value" id="t-seccional">—</div>
+      </div>
+      <div class="divider">Datos del Cliente</div>
+      <div class="ticket-row">
+        <div class="ticket-label">Nombre y Apellido</div>
+        <div class="ticket-value" id="t-nombre">—</div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-label">Fecha de Nacimiento</div>
+        <div class="ticket-value" id="t-nacimiento">—</div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-label">DNI / CUIT / CUIL</div>
+        <div class="ticket-value" id="t-dni">—</div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-label">Teléfono</div>
+        <div class="ticket-value" id="t-telefono">—</div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-label">Correo Electrónico</div>
+        <div class="ticket-value" id="t-email">—</div>
+      </div>
+      <div class="ticket-row">
+        <div class="ticket-label">Domicilio Legal</div>
+        <div class="ticket-value" id="t-domicilio-legal">—</div>
+      </div>
+      <div class="ticket-row" id="row-domicilio-real" style="display:none">
+        <div class="ticket-label">Domicilio Real</div>
+        <div class="ticket-value" id="t-domicilio-real">—</div>
+      </div>
+    </div>
+    <div class="ticket-footer">Documento generado automáticamente · No válido como comprobante fiscal</div>
+  </div>
+
+  <button class="btn-wa" id="btn-wa" onclick="sendWhatsApp()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Enviar por WhatsApp
+  </button>
+
+  <button class="btn-new" onclick="resetForm()">
+    ↩ Cargar Nuevo Cliente
+  </button>
+
+</div>
+
+<!-- MODAL SECCIONAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-title">📍 Localidades de Mendoza</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-search">
+      <input type="text" id="search-input" placeholder="Buscar localidad..." oninput="filterLocalidades()" />
+    </div>
+    <div class="modal-list" id="modal-list"></div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────
+// LOCALIDADES DE MENDOZA (completo)
+// ─────────────────────────────────────────
+const localidades = {
+  "Capital": [
+    "Mendoza Capital"
+  ],
+  "Gran Mendoza": [
+    "Godoy Cruz", "Guaymallén", "Las Heras", "Luján de Cuyo", "Maipú"
+  ],
+  "Luján de Cuyo": [
+    "Agrelo", "Carrodilla", "Chacras de Coria", "Drummond", "El Carrizal",
+    "Las Compuertas", "Luján de Cuyo (ciudad)", "Mayor Drummond", "Perdriel",
+    "Potrerillos", "Ugarteche", "Vistalba"
+  ],
+  "Maipú": [
+    "Coquimbito", "Cruz de Piedra", "Fray Luis Beltrán", "General Gutiérrez",
+    "Lunlunta", "Maipú (ciudad)", "Rodeo del Medio", "Russell", "San Roque"
+  ],
+  "Guaymallén": [
+    "Buena Nueva", "Capilla del Rosario", "Colonia Segovia", "El Bermejo",
+    "General Ortega", "Gobernador Benegas", "Kilómetro 8", "Las Cañas",
+    "Nueva Ciudad", "Pedro Molina", "Puente de Hierro", "San José",
+    "Villa Nueva"
+  ],
+  "Las Heras": [
+    "El Algarrobal", "El Challao", "El Plumerillo", "El Resguardo",
+    "El Sauce", "Enrique Bauber", "La Cieneguita", "Las Compuertas",
+    "Las Heras (ciudad)", "Los Corralitos", "Panquehua", "Sierras de Encalada"
+  ],
+  "Lavalle": [
+    "Costa de Araujo", "El Paramillo", "El Vergel", "Ingeniero Gustavo André",
+    "Jocolí", "La Holanda", "Lavalle (ciudad)", "Los Campamentos",
+    "Los Corralitos", "Paramillo", "San Miguel", "Villa Tulumaya"
+  ],
+  "San Martín": [
+    "Alto Salvador", "Buen Orden", "Chapanay", "Chivilcoy", "Ciudad de San Martín",
+    "El Central", "Ingeniero Balloffet", "Palmira", "Pareditas",
+    "San Martín (ciudad)", "Tres Porteñas"
+  ],
+  "Junín": [
+    "Alto Verde", "Medrano", "La Colonia", "Los Barriales", "Junín (ciudad)",
+    "Phillips", "Rodríguez Peña", "Sarmiento"
+  ],
+  "Rivadavia": [
+    "Andrade", "El Mirador", "La Central", "Medrano", "Mundo Nuevo",
+    "Rivadavia (ciudad)", "Santa María de Oro"
+  ],
+  "Santa Rosa": [
+    "La Dormida", "Lagunas del Rosario", "Punta del Agua", "Santa Rosa (ciudad)"
+  ],
+  "La Paz": [
+    "La Paz (ciudad)", "Las Catitas", "Desaguadero", "El Cavadito"
+  ],
+  "General Alvear": [
+    "Bowen", "El Sosneado", "Jaime Prats", "Los Compartos", "Monte Comán",
+    "General Alvear (ciudad)", "Real del Padre"
+  ],
+  "San Rafael": [
+    "Cañada Seca", "Cuadro Benegas", "Cuadro Nacional", "El Nihuil",
+    "Goudge", "Jaime Prats", "Las Malvinas", "Las Paredes",
+    "Punta del Agua", "Real del Padre", "San Rafael (ciudad)",
+    "Rama Caída", "Villa Atuel"
+  ],
+  "Malargüe": [
+    "Bardas Blancas", "El Manzano Histórico", "La Junta", "Las Loicas",
+    "Malargüe (ciudad)", "Pareditas", "Ranquil Norte", "Río Grande", "Sosneado"
+  ],
+  "Tupungato": [
+    "Anchoris", "El Peral", "La Arboleda", "Las Tunas", "Tupungato (ciudad)",
+    "Villa Bastías", "Vista Flores"
+  ],
+  "Tunuyán": [
+    "Campo Los Andes", "El Alamo", "Los Arboles", "Los Chacayes",
+    "Los Sauces", "Munives", "Salto de las Rosas", "Tunuyán (ciudad)"
+  ],
+  "San Carlos": [
+    "Apablaza", "El Cepillo", "Eugenio Bustos", "La Consulta",
+    "Manzano Histórico", "Pareditas", "San Carlos (ciudad)", "Tres Esquinas"
+  ],
+};
+
+let selectedSeccional = '';
+
+function renderList(data) {
+  const list = document.getElementById('modal-list');
+  list.innerHTML = '';
+  for (const [dept, items] of Object.entries(data)) {
+    const g = document.createElement('div');
+    g.className = 'modal-group-title';
+    g.textContent = dept;
+    list.appendChild(g);
+    items.forEach(loc => {
+      const d = document.createElement('div');
+      d.className = 'modal-item' + (loc === selectedSeccional ? ' selected' : '');
+      d.textContent = loc;
+      d.onclick = () => selectSeccional(loc);
+      list.appendChild(d);
+    });
+  }
+}
+
+function filterLocalidades() {
+  const q = document.getElementById('search-input').value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const filtered = {};
+  for (const [dept, items] of Object.entries(localidades)) {
+    const f = items.filter(l => l.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(q));
+    if (f.length) filtered[dept] = f;
+  }
+  renderList(filtered);
+}
+
+function openModal() {
+  document.getElementById('search-input').value = '';
+  renderList(localidades);
+  document.getElementById('modal-overlay').classList.add('active');
+  setTimeout(() => document.getElementById('search-input').focus(), 300);
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function selectSeccional(val) {
+  selectedSeccional = val;
+  const btn = document.getElementById('seccional-btn');
+  document.getElementById('seccional-text').textContent = val;
+  btn.classList.remove('placeholder-style');
+  btn.classList.add('selected');
+  document.getElementById('seccional-val').value = val;
+  closeModal();
+}
+
+// ─────────────────────────────────────────
+// VALIDACIÓN Y SUBMIT
+// ─────────────────────────────────────────
+function validate() {
+  let ok = true;
+
+  const fields = [
+    { id: 'operador', err: 'err-operador' },
+    { id: 'nombre', err: 'err-nombre' },
+    { id: 'nacimiento', err: 'err-nacimiento' },
+    { id: 'dni', err: 'err-dni' },
+    { id: 'telefono', err: 'err-telefono' },
+    { id: 'domicilio-legal', err: 'err-domicilio-legal' },
+  ];
+
+  fields.forEach(f => {
+    const el = document.getElementById(f.id);
+    const err = document.getElementById(f.err);
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      err.classList.add('show');
+      ok = false;
+    } else {
+      el.classList.remove('invalid');
+      err.classList.remove('show');
+    }
+  });
+
+  // Email
+  const email = document.getElementById('email');
+  const errEmail = document.getElementById('err-email');
+  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRx.test(email.value.trim())) {
+    email.classList.add('invalid');
+    errEmail.classList.add('show');
+    ok = false;
+  } else {
+    email.classList.remove('invalid');
+    errEmail.classList.remove('show');
+  }
+
+  // Seccional
+  const sec = document.getElementById('seccional-val');
+  const errSec = document.getElementById('err-seccional');
+  if (!sec.value) {
+    errSec.classList.add('show');
+    ok = false;
+  } else {
+    errSec.classList.remove('show');
+  }
+
+  return ok;
+}
+
+function formatDate(str) {
+  if (!str) return '—';
+  const [y, m, d] = str.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+function genTicketId() {
+  const now = new Date();
+  return 'TK-' + now.getFullYear().toString().slice(-2)
+    + String(now.getMonth()+1).padStart(2,'0')
+    + String(now.getDate()).padStart(2,'0')
+    + '-' + Math.floor(Math.random()*9000+1000);
+}
+
+let ticketData = {};
+
+function submitForm() {
+  if (!validate()) {
+    document.querySelector('.invalid, [style*="block"]') && window.scrollTo({top:0,behavior:'smooth'});
+    // scroll to first error
+    const firstErr = document.querySelector('.invalid');
+    if (firstErr) firstErr.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const now = new Date();
+  const fecha = now.toLocaleDateString('es-AR', {
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+  const ticketId = genTicketId();
+
+  ticketData = {
+    id: ticketId,
+    fecha,
+    operador: document.getElementById('operador').value.trim(),
+    seccional: document.getElementById('seccional-val').value,
+    nombre: document.getElementById('nombre').value.trim(),
+    nacimiento: formatDate(document.getElementById('nacimiento').value),
+    dni: document.getElementById('dni').value.trim(),
+    telefono: document.getElementById('telefono').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    domicilioLegal: document.getElementById('domicilio-legal').value.trim(),
+    domicilioReal: document.getElementById('domicilio-real').value.trim(),
+  };
+
+  // Fill ticket
+  document.getElementById('ticket-id').textContent = 'N° ' + ticketData.id;
+  document.getElementById('t-fecha').textContent = ticketData.fecha;
+  document.getElementById('t-operador').textContent = ticketData.operador;
+  document.getElementById('t-seccional').textContent = ticketData.seccional;
+  document.getElementById('t-nombre').textContent = ticketData.nombre;
+  document.getElementById('t-nacimiento').textContent = ticketData.nacimiento;
+  document.getElementById('t-dni').textContent = ticketData.dni;
+  document.getElementById('t-telefono').textContent = ticketData.telefono;
+  document.getElementById('t-email').textContent = ticketData.email;
+  document.getElementById('t-domicilio-legal').textContent = ticketData.domicilioLegal;
+
+  const rowReal = document.getElementById('row-domicilio-real');
+  if (ticketData.domicilioReal) {
+    document.getElementById('t-domicilio-real').textContent = ticketData.domicilioReal;
+    rowReal.style.display = 'flex';
+  } else {
+    rowReal.style.display = 'none';
+  }
+
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('ticket-section').style.display = 'block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function sendWhatsApp() {
+  const d = ticketData;
+  let msg = `🧾 *TICKET DE ALTA DE CLIENTE*\n`;
+  msg += `*N°:* ${d.id}\n`;
+  msg += `*Fecha:* ${d.fecha}\n\n`;
+  msg += `👷 *OPERADOR:* ${d.operador}\n`;
+  msg += `📍 *Seccional:* ${d.seccional}\n\n`;
+  msg += `─────────────────\n`;
+  msg += `*DATOS DEL CLIENTE*\n`;
+  msg += `─────────────────\n`;
+  msg += `👤 *Nombre:* ${d.nombre}\n`;
+  msg += `🗓️ *Nac.:* ${d.nacimiento}\n`;
+  msg += `🪪 *DNI/CUIT:* ${d.dni}\n`;
+  msg += `📞 *Teléfono:* ${d.telefono}\n`;
+  msg += `📧 *Email:* ${d.email}\n`;
+  msg += `🏠 *Dom. Legal:* ${d.domicilioLegal}\n`;
+  if (d.domicilioReal) msg += `🏡 *Dom. Real:* ${d.domicilioReal}\n`;
+  msg += `\n_Generado automáticamente_`;
+
+  const url = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank');
+}
+
+function resetForm() {
+  document.getElementById('ticket-section').style.display = 'none';
+  document.getElementById('form-section').style.display = 'block';
+
+  // Clear fields
+  ['operador','nombre','nacimiento','dni','telefono','email','domicilio-legal','domicilio-real'].forEach(id => {
+    document.getElementById(id).value = '';
+    document.getElementById(id).classList.remove('invalid');
+  });
+
+  selectedSeccional = '';
+  document.getElementById('seccional-val').value = '';
+  document.getElementById('seccional-text').textContent = 'Seleccionar localidad...';
+  document.getElementById('seccional-btn').classList.add('placeholder-style');
+  document.getElementById('seccional-btn').classList.remove('selected');
+
+  document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>
